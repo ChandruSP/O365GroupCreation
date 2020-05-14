@@ -2,7 +2,7 @@ import * as React from 'react';
 import styles from './CreateO365Groups.module.scss';
 import { escape } from '@microsoft/sp-lodash-subset';
 import * as MicrosoftGraph from '@microsoft/microsoft-graph-types';
-
+import { SPComponentLoader } from "@microsoft/sp-loader";
 import { HttpClient, HttpClientResponse, IHttpClientOptions } from '@microsoft/sp-http';
 import { ICreateO365GroupsProps } from './ICreateO365GroupsProps';
 import { ICreateO365GroupsState } from './ICreateO365GroupsState';
@@ -29,7 +29,7 @@ import { Stack, IStackProps, IStackStyles } from 'office-ui-fabric-react/lib/Sta
 import { DefaultButton, PrimaryButton, IStackTokens } from 'office-ui-fabric-react';
 import { ChoiceGroup, IChoiceGroupOption } from 'office-ui-fabric-react/lib/ChoiceGroup';
 
-
+import '../../../ExternalRef/CSS/style.css'
 
 
 export default class CreateO365Groups extends React.Component<ICreateO365GroupsProps, ICreateO365GroupsState> {
@@ -403,34 +403,97 @@ export default class CreateO365Groups extends React.Component<ICreateO365GroupsP
     }
 
 
-    const stackTokens = { childrenGap: 50 };
-    const stackStyles: Partial<IStackStyles> = { root: { width: 650 } };
+    const stackTokens = { childrenGap:15 };
+    const stackStyles: Partial<IStackStyles> = { root: { width: 720 } };
     const columnProps: Partial<IStackProps> = {
-      tokens: { childrenGap: 15 },
-      styles: { root: { width: 300 } },
+      tokens: { childrenGap: 0 },
+      styles: { root: { width: 720 } },
+    };
+    const dropDowncolumnProps: Partial<IStackProps> = {
+      tokens: { childrenGap: 5 },
+      styles: { root: { width: 100 } },
+    };
+    const shortdropDowncolumnProps: Partial<IStackProps> = {
+      tokens: { childrenGap: 5 },
+      styles: { root: { width: 155 } },
+    };
+    const visibilitycolumnProps: Partial<IStackProps> = {
+      tokens: { childrenGap: 0 },
+      styles: { root: { width: 360} },
     };
 
     return (
       <div>
 
-        <Stack horizontal tokens={stackTokens} styles={stackStyles}>
-          <Stack {...columnProps}>
-            <PeoplePicker
-              context={this.props.context}
-              titleText="Members"
-              personSelectionLimit={100}
-              groupName={""}
-              showtooltip={true}
-              isRequired={false}
-              disabled={false}
-              selectedItems={this._getPeoplePickerItems.bind(this)}
-              showHiddenInUI={false}
-              principalTypes={[PrincipalType.User]}
-              resolveDelay={1000} />
+        <Stack  horizontal tokens={stackTokens} styles={stackStyles} >
+          <Stack {...dropDowncolumnProps} >
+            <Dropdown
+              id="countryCode"
+              placeholder="Select"
+              label="Country Code"
+              onChange={onChange}
+              options={countryCode}
+            />
+            </Stack>
+            <Stack {...dropDowncolumnProps} >
+            <Dropdown
+              id="companyCode"
+              placeholder="Select"
+              label="Company Code"
+              onChange={onChange}
+              options={companyCode}
+            />
+      </Stack>
+      <Stack {...dropDowncolumnProps} >
+            <Dropdown
+              id="groupCode"
+              placeholder="Select"
+              label="Group Code"
+              onChange={onChange}
+              options={groupCode}
+            />
+            </Stack>
+            <Stack {...dropDowncolumnProps} >
+            <Dropdown
+              id="projectNumber"
+              placeholder="Select"
+              label="Project Number"
+              onChange={onChange}
+              options={projNumber}
+            />
+          </Stack>
+          <Stack {...dropDowncolumnProps} >
+            <TextField label="Task Number" name="taskNumber" onChange={(e) => this.inputChangeHandler.call(this, e)} value={this.state.formData.taskNumber} />
+          </Stack>
+          <Stack {...shortdropDowncolumnProps} >
+            <TextField label="Short Description" name="shortDescription" onChange={(e) => this.inputChangeHandler.call(this, e)} value={this.state.formData.shortDescription} />
+          </Stack>
+   
+          </Stack>
+          <Stack {...columnProps} >
+          <Checkbox label="Promotional Project" onChange={this.showMarketingDept.bind(this)} /> 
           </Stack>
 
-          <Stack {...columnProps}>
-            <PeoplePicker
+          <Stack {...columnProps} >
+          <TextField label="Description" multiline rows={3} name="description" onChange={(e) => this.inputChangeHandler.call(this, e)} value={this.state.formData.description} />
+          </Stack>
+
+        <Stack  horizontal tokens={stackTokens} styles={stackStyles} >
+        <Stack {...visibilitycolumnProps} >
+        <Dropdown
+              id="visibility"
+              placeholder="Select"
+              label="Visibility"
+              onChange={onChange}
+              options={visibility} 
+            /> 
+            </Stack>
+            <Stack {...visibilitycolumnProps} > <Checkbox label="Send mail to members" className={"common-form-group"}  /></Stack></Stack>
+           
+
+            <Stack  horizontal tokens={stackTokens} styles={stackStyles} >
+          <Stack {...visibilitycolumnProps} >
+            <PeoplePicker  
               context={this.props.context}
               titleText="Project Leader"
               personSelectionLimit={1}
@@ -441,11 +504,87 @@ export default class CreateO365Groups extends React.Component<ICreateO365GroupsP
               selectedItems={this.getPracticeLeader.bind(this)}
               showHiddenInUI={false}
               principalTypes={[PrincipalType.User]}
+              resolveDelay={1000} 
+             
+              />
+              </Stack>
+              <Stack {...visibilitycolumnProps} >
+<PeoplePicker
+              context={this.props.context}
+              titleText="Group Leader"
+              personSelectionLimit={1}
+              groupName={""}
+              showtooltip={true}
+              isRequired={false}
+              disabled={false}
+              selectedItems={this.getGroupLeader.bind(this)}
+              showHiddenInUI={false}
+              principalTypes={[PrincipalType.User]}
               resolveDelay={1000} />
-          </Stack>
-        </Stack>
+</Stack></Stack>
+<Stack  horizontal tokens={stackTokens} styles={stackStyles} >
+<Stack {...visibilitycolumnProps} >
+<PeoplePicker
+              context={this.props.context}
+              titleText="Practice Administrator"
+              personSelectionLimit={1}
+              groupName={""}
+              showtooltip={true}
+              isRequired={false}
+              disabled={false}
+              selectedItems={this.getPracticeAdministrator.bind(this)}
+              showHiddenInUI={false}
+              principalTypes={[PrincipalType.User]}
+              resolveDelay={1000} />
+</Stack>
+{
+            this.state.hasMarketingMember ? 
+            <Stack {...visibilitycolumnProps} >
+              <PeoplePicker
+                context={this.props.context}
+                titleText="Marketing Dept member"
+                personSelectionLimit={1}
+                groupName={""}
+                showtooltip={true}
+                isRequired={false}
+                disabled={false}
+                selectedItems={this.getMarketingMember.bind(this)}
+                showHiddenInUI={false}
+                principalTypes={[PrincipalType.User]}
+                resolveDelay={1000} /></Stack>
+             : null
+          }
+</Stack>
 
-        <Stack horizontal tokens={stackTokens} styles={stackStyles}>
+
+
+           <Stack {...columnProps} >
+           <PeoplePicker
+              context={this.props.context}
+              titleText="Members"
+              personSelectionLimit={100}
+              groupName={""}
+              showtooltip={true}
+              isRequired={false}
+              disabled={false}
+              selectedItems={this._getPeoplePickerItems.bind(this)}
+              showHiddenInUI={false}
+              principalTypes={[PrincipalType.User]}
+              resolveDelay={1000}  />
+           </Stack>
+         
+
+<Stack {...columnProps} >
+<ChoiceGroup defaultSelectedKey="1" options={options} onChange={choiceChange.bind(this)} label="Pick one" />
+</Stack>   
+
+<PrimaryButton text="Submit" onClick={this.formHandler.bind(this)} />
+
+
+          
+       {/* </Stack> */}
+
+        {/* <Stack horizontal tokens={stackTokens} styles={stackStyles}>
           <Stack {...columnProps}>
             <PeoplePicker
               context={this.props.context}
@@ -586,7 +725,7 @@ export default class CreateO365Groups extends React.Component<ICreateO365GroupsP
 
         <Stack horizontal tokens={stackTokens} styles={stackStyles}>
           <PrimaryButton text="Submit" onClick={this.formHandler.bind(this)} />
-        </Stack>
+        </Stack> */}
 
 
 
