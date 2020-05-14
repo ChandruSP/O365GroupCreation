@@ -87,7 +87,7 @@ export default class CreateO365Groups extends React.Component<ICreateO365GroupsP
   }
 
   folderCreation(index, connectWeb) {
-    console.log('Folder create : ' + this.commonFolders[index]);
+    console.log('Folder create git: ' + this.commonFolders[index]);
     var that = this;
     connectWeb.folders.add('Shared%20Documents/' + this.commonFolders[index])
       .then(function (data) {
@@ -135,7 +135,7 @@ export default class CreateO365Groups extends React.Component<ICreateO365GroupsP
             var postData = {
               "groupId": groupId
             };
-
+              
             const requestHeaders: Headers = new Headers();
             requestHeaders.append('Content-type', 'application/json');
             requestHeaders.append('Cache-Control', 'no-cache');
