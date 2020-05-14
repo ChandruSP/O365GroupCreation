@@ -1,0 +1,11 @@
+.ms-Stack,.ms-Button ,.common-form-group{
+    margin-top: 10px !important
+}
+.common-form-group{
+    margin-top: 35px !important 
+}
+.ms-ChoiceField 
+{
+    display: inline-block;
+    margin-left: 15px;
+}
