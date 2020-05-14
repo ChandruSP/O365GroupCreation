@@ -1,0 +1,13 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "spf-o-365-with-teams-client-side-solution",
+    "id": "7defcd54-ef63-4508-ba8c-8f16f285b9ab",
+    "version": "1.0.0.0",
+    "includeClientSideAssets": true,
+    "isDomainIsolated": false
+  },
+  "paths": {
+    "zippedPackage": "solution/spf-o-365-with-teams.sppkg"
+  }
+}
