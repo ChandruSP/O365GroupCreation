@@ -79,9 +79,12 @@ export default class CreateO365Groups extends React.Component<ICreateO365GroupsP
       .api('/planner/plans')
       .post(plannerPlan)
       .then((content: any) => {
+        alertify.set("notifier", "position", "top-right");
         alertify.success('Planner created successfully');
       })
+      
       .catch(err => {
+        alertify.set("notifier", "position", "top-right");
         alertify.error('Error while creating planner');
       });
   }
@@ -95,11 +98,13 @@ export default class CreateO365Groups extends React.Component<ICreateO365GroupsP
         if (index < that.commonFolders.length) {
           that.folderCreation(index, connectWeb);
         } else {
+          alertify.set("notifier", "position", "top-right");
           alertify.success('Folder created successfully');
         }
       })
       .catch(function (err) {
         console.log(err);
+        alertify.set("notifier", "position", "top-right");
         alertify.error('Error while creationg folders');
       });
   }
@@ -126,6 +131,7 @@ export default class CreateO365Groups extends React.Component<ICreateO365GroupsP
       .api('/groups/' + groupId + '/' + role + '/$ref')
       .post(user)
       .then((content: any) => {
+        alertify.set("notifier", "position", "top-right");
         alertify.success('User ' + email + ' added');
 
         if (that.createPlannerNow) {
@@ -149,6 +155,7 @@ export default class CreateO365Groups extends React.Component<ICreateO365GroupsP
               HttpClient.configurations.v1,
               httpClientOptions)
               .then(function (res) {
+                alertify.set("notifier", "position", "top-right");
                 alertify.success('Teams created successfully');
                 if (that.state.commonFolder == true) {
                   that.createFolder(that.mailNickName);
@@ -160,6 +167,7 @@ export default class CreateO365Groups extends React.Component<ICreateO365GroupsP
 
       })
       .catch(err => {
+        alertify.set("notifier", "position", "top-right");
         alertify.error('Error while creating member');
       });
 
@@ -241,9 +249,11 @@ export default class CreateO365Groups extends React.Component<ICreateO365GroupsP
       .post(details)
       .then((content: any) => {
         that.createADMembers(content.id);
+        alertify.set("notifier", "position", "top-right");
         alertify.success('Group created successfully');
       })
       .catch(err => {
+        alertify.set("notifier", "position", "top-right");
         alertify.error('Error while creating a group');
       });
 
@@ -253,26 +263,32 @@ export default class CreateO365Groups extends React.Component<ICreateO365GroupsP
 
     let formData = this.state.formData;
     if (!formData.countryCode) {
+      alertify.set("notifier", "position", "top-right");
       alertify.error('Country code is required');
       return;
     }
     if (!formData.companyCode) {
+      alertify.set("notifier", "position", "top-right");
       alertify.error('Company code is required');
       return;
     }
     if (!formData.groupCode) {
+      alertify.set("notifier", "position", "top-right");
       alertify.error('Group code is required');
       return;
     }
     if (!formData.projectNumber) {
+      alertify.set("notifier", "position", "top-right");
       alertify.error('Project number is required');
       return;
     }
     if (!formData.taskNumber) {
+      alertify.set("notifier", "position", "top-right");
       alertify.error('Task number is required');
       return;
     }
     if (!formData.shortDescription) {
+      alertify.set("notifier", "position", "top-right");
       alertify.error('Short description is required');
       return;
     }
