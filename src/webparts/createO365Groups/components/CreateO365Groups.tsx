@@ -28,10 +28,10 @@ import { TextField, MaskedTextField } from 'office-ui-fabric-react/lib/TextField
 import { Stack, IStackProps, IStackStyles } from 'office-ui-fabric-react/lib/Stack';
 import { DefaultButton, PrimaryButton, IStackTokens } from 'office-ui-fabric-react';
 import { ChoiceGroup, IChoiceGroupOption } from 'office-ui-fabric-react/lib/ChoiceGroup';
-
+import 'alertifyjs';
 import '../../../ExternalRef/CSS/style.css'
-
-
+import '../../../ExternalRef/CSS/alertify.min.css';  
+var alertify: any = require('../../../ExternalRef/JS/alertify.min.js');
 export default class CreateO365Groups extends React.Component<ICreateO365GroupsProps, ICreateO365GroupsState> {
   globalDisplayName: string = '';
   createPlannerNow: boolean = false;
@@ -79,10 +79,10 @@ export default class CreateO365Groups extends React.Component<ICreateO365GroupsP
       .api('/planner/plans')
       .post(plannerPlan)
       .then((content: any) => {
-        alert('Planner created successfully');
+        alertify.success('Planner created successfully');
       })
       .catch(err => {
-        alert('Error while creating planner');
+        alertify.error('Error while creating planner');
       });
   }
 
@@ -95,12 +95,12 @@ export default class CreateO365Groups extends React.Component<ICreateO365GroupsP
         if (index < that.commonFolders.length) {
           that.folderCreation(index, connectWeb);
         } else {
-          alert('Folder created successfully');
+          alertify.success('Folder created successfully');
         }
       })
       .catch(function (err) {
         console.log(err);
-        alert('Error while creationg folders');
+        alertify.error('Error while creationg folders');
       });
   }
 
@@ -126,7 +126,7 @@ export default class CreateO365Groups extends React.Component<ICreateO365GroupsP
       .api('/groups/' + groupId + '/' + role + '/$ref')
       .post(user)
       .then((content: any) => {
-        alert('User ' + email + ' added');
+        alertify.success('User ' + email + ' added');
 
         if (that.createPlannerNow) {
           that.createPlannerNow = false;
@@ -149,7 +149,7 @@ export default class CreateO365Groups extends React.Component<ICreateO365GroupsP
               HttpClient.configurations.v1,
               httpClientOptions)
               .then(function (res) {
-                alert('Teams created successfully');
+                alertify.success('Teams created successfully');
                 if (that.state.commonFolder == true) {
                   that.createFolder(that.mailNickName);
                 }
@@ -160,7 +160,7 @@ export default class CreateO365Groups extends React.Component<ICreateO365GroupsP
 
       })
       .catch(err => {
-        alert('Error while creating member');
+        alertify.error('Error while creating member');
       });
 
   }
@@ -241,10 +241,10 @@ export default class CreateO365Groups extends React.Component<ICreateO365GroupsP
       .post(details)
       .then((content: any) => {
         that.createADMembers(content.id);
-        alert('Group created successfully');
+        alertify.success('Group created successfully');
       })
       .catch(err => {
-        alert('Error while creating a group');
+        alertify.error('Error while creating a group');
       });
 
   }
@@ -253,27 +253,27 @@ export default class CreateO365Groups extends React.Component<ICreateO365GroupsP
 
     let formData = this.state.formData;
     if (!formData.countryCode) {
-      alert('Country code is required');
+      alertify.error('Country code is required');
       return;
     }
     if (!formData.companyCode) {
-      alert('Company code is required');
+      alertify.error('Company code is required');
       return;
     }
     if (!formData.groupCode) {
-      alert('Group code is required');
+      alertify.error('Group code is required');
       return;
     }
     if (!formData.projectNumber) {
-      alert('Project number is required');
+      alertify.error('Project number is required');
       return;
     }
     if (!formData.taskNumber) {
-      alert('Task number is required');
+      alertify.error('Task number is required');
       return;
     }
     if (!formData.shortDescription) {
-      alert('Short description is required');
+      alertify.error('Short description is required');
       return;
     }
     this.createADGroup();
