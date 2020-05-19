@@ -5,7 +5,8 @@
     "id": "7defcd54-ef63-4508-ba8c-8f16f285b9ab",
     "version": "1.0.0.0",
     "includeClientSideAssets": true,
-    "isDomainIsolated": false
+    "isDomainIsolated": false,
+    "skipFeatureDeployment": true
   },
   "paths": {
     "zippedPackage": "solution/spf-o-365-with-teams.sppkg"

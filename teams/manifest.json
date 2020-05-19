@@ -1,0 +1,44 @@
+{
+  "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.6/MicrosoftTeams.schema.json",
+  "manifestVersion": "1.6",
+  "version": "1.0.0",
+  "showLoadingIndicator": false,
+  "id": "54fb1617-98e8-4164-b285-1c6beab75e54",
+  "packageName": "O365 group Creation",
+  "developer": {
+    "name": "Chandru",
+    "websiteUrl": "https://www.technorucs.com",
+    "privacyUrl": "https://www.technorucs.com",
+    "termsOfUseUrl": "https://www.technorucs.com"
+  },
+  "icons": {
+    "color": "color.png",
+    "outline": "outline.png"
+  },
+  "name": {
+    "short": "O365 group Creation",
+    "full": "O365 group Creation"
+  },
+  "description": {
+    "short": "This creates all the artifacts",
+    "full": "for the Project needs"
+  },
+  "accentColor": "#FFFFFF",
+  "configurableTabs": [
+    {
+      "configurationUrl": "https://{teamSiteDomain}/_layouts/15/TeamsLogon.aspx?SPFX=true&dest=/_layouts/15/teamshostedapp.aspx%3Fteams%26personal%26componentId={869979d3-5beb-457b-bc92-a3a32afaee43}%26forceLocale={locale}",
+      "canUpdateConfiguration": true,
+      "scopes": ["team"]
+    }
+  ],
+  "permissions": ["identity", "messageTeamMembers"],
+  "validDomains": [
+    "*.login.microsoftonline.com",
+    "*.sharepoint.com",
+    "*.sharepoint-df.com",
+    "spoppe-a.akamaihd.net",
+    "spoprod-a.akamaihd.net",
+    "resourceseng.blob.core.windows.net",
+    "msft.spoppe.com"
+  ]
+}
